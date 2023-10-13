@@ -7,7 +7,7 @@ TEST(test_01, defaultConstructor)
     Three t;
     std::string s;
     t.convertToString(s);
-    EXPECT_TRUE(s == "");
+    EXPECT_TRUE(s == "0");
 }
 
 TEST(test_01, fillConstructor)
@@ -15,7 +15,7 @@ TEST(test_01, fillConstructor)
     Three t(3);
     std::string s;
     t.convertToString(s);
-    EXPECT_TRUE(s == "000");
+    EXPECT_TRUE(s == "0");
 }
 
 TEST(test_01, fillConstructor2)
@@ -158,6 +158,15 @@ TEST(test_06, sum)
     ASSERT_TRUE(t1.sum(t2).equals(t3));
 }
 
+TEST(test_06, sumZeros)
+{
+    Three t1 {'0'};
+    Three t2 {'0'};
+    Three t3 {'0'};
+
+    ASSERT_TRUE(t1.sum(t2).equals(t3));
+}
+
 TEST(test_06, sum2)
 {
     Three t2 {'1', '0', '1'};
@@ -224,6 +233,17 @@ TEST(test_07, add)
     Three t1 {'1', '0', '1'};
     Three t2 {'1', '1', '0'};
     Three t3 {'2', '1', '1'};
+
+    t1.add(t2);
+
+    ASSERT_TRUE(t1.equals(t3));
+}
+
+TEST(test_07, addZeros)
+{
+    Three t1 {'0'};
+    Three t2 {'0'};
+    Three t3 {'0'};
 
     t1.add(t2);
 
@@ -343,6 +363,15 @@ TEST(test_08, subtraction)
     ASSERT_TRUE(t1.subtraction(t2).equals(t3));
 }
 
+TEST(test_08, subtractionZeros)
+{
+    Three t1 {'0'};
+    Three t2 {'0'};
+    Three t3 {'0'};
+
+    ASSERT_TRUE(t1.subtraction(t2).equals(t3));
+}
+
 TEST(test_08, subtractionExtra)
 {
     Three t1 {'2', '1', '1'};
@@ -398,6 +427,17 @@ TEST(test_09, remove)
     Three t1 {'2', '1', '1'};
     Three t2 {'1', '1', '1'};
     Three t3 {'1', '0', '0'};
+
+    t1.remove(t2);
+
+    ASSERT_TRUE(t1.equals(t3));
+}
+
+TEST(test_09, removeZeros)
+{
+    Three t1 {'0'};
+    Three t2 {'0'};
+    Three t3 {'0'};
 
     t1.remove(t2);
 

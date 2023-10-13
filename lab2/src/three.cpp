@@ -1,6 +1,11 @@
 #include "three.h"
 
-Three::Three() : _size(0), _array{nullptr} {}  // Default constructor
+Three::Three()   // Default constructor
+{
+    _size = 1;
+    _array = new unsigned char[1];
+    _array[0] = '0';
+}
 
 Three::Three(const size_t &n, unsigned char t)  // Fill constructor
 {
@@ -55,8 +60,10 @@ int Three::size() {
 }
 
 void Three::convertToString(std::string & s) {
-    for (size_t i = 0; i < _size; ++i) {
-        s = static_cast<char>(_array[i]) + s;
+    this->removeZeros();
+    for (int i = _size - 1; i >= 0; --i) {
+        // s += _array[i];
+        s.append(1, static_cast<char>(_array[i]));
     }
 }
 
@@ -73,6 +80,9 @@ void Three::addZeros(int n) {
 }
 
 void Three::removeZeros() {
+    if (_array == nullptr) {
+        return;
+    }
     int t = -1;
     for (size_t i = 0; i < _size; ++i) {
         if (_array[_size - i - 1] != '0') {
@@ -247,6 +257,7 @@ void Three::remove(const Three &other) {
 
 std::ostream &Three::print(std::ostream &os)
 {
+    this->removeZeros();
     for (size_t i = 0; i < _size; ++i)
         os << _array[_size - i - 1];
     return os;
@@ -254,7 +265,7 @@ std::ostream &Three::print(std::ostream &os)
 
 Three::~Three() noexcept  // Destructor
 {
-    if (_size > 0)
+    if (_array != nullptr)
     {
         _size = 0;
         delete[] _array;

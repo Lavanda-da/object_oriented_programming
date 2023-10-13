@@ -14,9 +14,7 @@ public:
     Three(Three&& other) noexcept;      
 
     int size();
-    void convertToString(std::string & s);
-    void addZeros(int n);
-    void removeZeros();
+    void convertToString(std::string & s);    
 
     bool equals(const Three& other) const;
     bool more(const Three &other) const;
@@ -28,6 +26,10 @@ public:
     std::ostream& print(std::ostream& os);
 
     virtual ~Three() noexcept;
+
+private:
+    void addZeros(int n);
+    void removeZeros();
 
 private:
     size_t _size;
