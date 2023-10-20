@@ -55,7 +55,7 @@ Three::Three(Three &&other) noexcept  // Move constructor
     other._array = nullptr;
 }
 
-int Three::size() {
+int Three::size() const {
     return _size;
 }
 

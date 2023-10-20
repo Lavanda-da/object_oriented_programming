@@ -13,7 +13,7 @@ public:
     Three(const Three& other);
     Three(Three&& other) noexcept;      
 
-    int size();
+    int size() const;
     void convertToString(std::string & s);    
 
     bool equals(const Three& other) const;

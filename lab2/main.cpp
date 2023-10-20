@@ -13,6 +13,7 @@ int main(){
         t1.convertToString(s);
         // t1.print(std::cout) << std::endl;
         std::cout << s << std::endl;
+        std::cout << t1.size() << std::endl;
 
         // t1.sum(t2).print(std::cout) << std::endl;
 
