@@ -5,8 +5,8 @@
 
 class Rhomb : public Figure
 {
-public:
-    Rhomb() = default;
+public :
+    Rhomb() : Figure() {};
     Rhomb(const std::initializer_list<double> &coords);
     Rhomb(const Rhomb& other);
     Rhomb(Rhomb&& other);
@@ -14,28 +14,24 @@ public:
     Rhomb(Figure&& other);
     virtual ~Rhomb() = default;
     
-public:
+public :
     virtual operator double() const override;
-    bool operator==(const Rhomb& other) const;
-    void operator=(const Rhomb& other);
-    void operator=(Rhomb&& other);
-    // virtual void operator=(const Figure& other) override;
-    // virtual void operator=(Figure&& other) override;
+    virtual bool equal(const Figure& other) const override;
+    Rhomb& operator=(const Rhomb& other);
+    Rhomb& operator=(Rhomb&& other);
 
 	
-private:
-    double getDiag1() const;
-    double getDiag2() const;
-    double getSide() const;
-    bool check(point p1, point p2, point p3, point p4);
-    virtual void update() override;
+protected :
+    virtual bool check(point p1, point p2, point p3, point p4) override;
+    virtual std::string getType() const override;
+    virtual double * getParams() const override;
+    virtual point * getArray() const override;
 
-private : 
+protected : 
     std::string typeOfFigure = "rhomb";
-    double diag1 = getDiag1();
-    double diag2 = getDiag2();
-    double side = getSide();
-
+    double _diag1;
+    double _diag2;
+    double _side;
 };
 
 #endif

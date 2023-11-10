@@ -5,8 +5,8 @@
 
 class Trapezium : public Figure
 {
-public:
-    Trapezium() = default;
+public :
+    Trapezium() : Figure() {};
     Trapezium(const std::initializer_list<double> &coords);
     Trapezium(const Trapezium& other);
     Trapezium(Trapezium&& other);
@@ -14,25 +14,24 @@ public:
     Trapezium(Figure&& other);
     virtual ~Trapezium() = default;
     
-public:
+public :
     virtual operator double() const override;
-    bool operator==(const Trapezium& other) const;
-    void operator=(const Trapezium& other);
-    void operator=(Trapezium&& other);
-    // virtual void operator=(const Figure& other) override;
-    // virtual void operator=(Figure&& other) override;
+    virtual bool equal(const Figure& other) const override;
+    Trapezium& operator=(const Trapezium& other);
+    Trapezium& operator=(Trapezium&& other);
 
 	
-private:
-    bool check(point p1, point p2, point p3, point p4);
-    virtual void update() override;
+protected :
+    virtual bool check(point p1, point p2, point p3, point p4) override;
+    virtual std::string getType() const override;
+    virtual double * getParams() const override;
+    virtual point * getArray() const override;
 
-private : 
+protected : 
     std::string typeOfFigure = "trap";
-    double a;
-    double b;
-    double height;
-
+    double _a;
+    double _b;
+    double _height;
 };
 
 #endif

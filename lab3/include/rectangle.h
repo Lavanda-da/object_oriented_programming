@@ -6,8 +6,8 @@
 
 class Rectangle : public Figure
 {
-public:
-    Rectangle() = default;
+public :
+    Rectangle() : Figure() {};
     Rectangle(const std::initializer_list<double> &coords);
     Rectangle(const Rectangle& other);
     Rectangle(Rectangle&& other);
@@ -15,24 +15,23 @@ public:
     Rectangle(Figure&& other);
     virtual ~Rectangle() = default;
     
-public:
+public :
     virtual operator double() const override;
-    bool operator==(const Rectangle& other) const;
-    void operator=(const Rectangle& other);
-    void operator=(Rectangle&& other);
+    virtual bool equal(const Figure& other) const override;
+    Rectangle& operator=(const Rectangle& other);
+    Rectangle& operator=(Rectangle&& other);
 
 	
-private:
-    double getWidth() const;
-    double getHeight() const;
-    bool check(point p1, point p2, point p3, point p4);
-    virtual void update() override;
+protected :
+    virtual bool check(point p1, point p2, point p3, point p4) override;
+    virtual std::string getType() const override;
+    virtual double * getParams() const override;
+    virtual point * getArray() const override;
 
-private : 
+protected : 
     std::string typeOfFigure = "rect";
-    double width = getWidth();
-    double height = getHeight();
-
+    double _side1;
+    double _side2;
 };
 
 #endif

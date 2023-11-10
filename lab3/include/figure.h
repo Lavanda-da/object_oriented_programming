@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <algorithm>
 
 #define EPS 0.001
 
@@ -11,14 +12,12 @@ struct point{
     double x;
     double y;
     bool operator==(point right) {
-        if (x == right.x && y == right.y) {
+        if (fabs(x - right.x) < EPS && fabs(y - right.y) < EPS) {
             return true;
         }
         return false;
     }
 };
-
-struct exeptionFailCreateFigure {};
 
 class Figure
 {
@@ -27,22 +26,24 @@ protected :
     Figure(const std::initializer_list<double> &coords);
     Figure(const Figure& other);
     Figure(Figure&& other);
-    virtual void update() = 0;
 
 public :
     virtual ~Figure() = default;
     point center() const;
     virtual operator double() const = 0;
-    // void operator=(const Figure& other);
-    // void operator=(Figure&& other);
     friend std::ostream& operator<<(std::ostream&, const Figure&);
     friend std::istream& operator>>(std::istream&, Figure&);
-    bool operator==(const Figure& other) const;
-    // virtual bool check(point p1, point p2, point p3, point p4) const = 0;
+    friend bool operator==(const Figure& left, const Figure& right);
+    virtual bool equal(const Figure& other) const = 0;
+    virtual bool check(point p1, point p2, point p3, point p4) = 0;
+    virtual std::string getType() const = 0;
+    virtual double * getParams() const = 0;
+    virtual point * getArray() const = 0;
 
 protected :
-    std::string typeOfFigure = "none";
+    std::string typeOfFigure;
     point *_array = nullptr;
+    double *_array_params = nullptr;
 };
 
 #endif

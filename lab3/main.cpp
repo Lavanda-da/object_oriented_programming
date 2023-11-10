@@ -3,19 +3,30 @@
 #include "rectangle.h"
 #include "rhomb.h"
 #include "trapezium.h"
+#include "array.h"
 
 int main() {
     try {
-        // Rectangle r{2, 0, 4, 2, 3, 3, 1, 1};
-        // Rectangle r2 = r;
-        Trapezium tr{1, 0, 5, 0, 4, 2, 2, 2};
-        // Trapezium tr2(tr);
-        // std::cout << (tr == r) << '\n';
-        // std::cout << r2;
-        // std::cout << (r == r2) << '\n';
+        Rectangle r{1, 1, 2, 1, 2, 2, 1, 2};
+        Rhomb rh{2, 1, 3, 2, 2, 3, 1, 2};
+        Trapezium tr{1, 1, 5, 1, 4, 3, 2, 3};
+
+        Array arr{&r, &rh, &tr};
+
+        std::cout << "Центры фигур:\n"; 
+        arr.center();
+
+        std::cout << "Общая сумма площадей фигур:\n"; 
+        double sum_arr = double(arr);
+        std::cout << sum_arr << std::endl;
+
+        std::cout << "Площади фигур по отдельности:\n";
+        arr.squareOfEachFigure();
     }
-    catch (const exeptionFailCreateFigure &ex) {
-        std::cout << "ex1\n";
+    catch (const std::invalid_argument &ex1) {
+        std::cout << ex1.what() << "\n";
     }
-    // std::cout << 1;
+    catch (const std::range_error &ex2) {
+        std::cout << ex2.what() << "\n";
+    }
 }
