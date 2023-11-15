@@ -60,7 +60,25 @@ Trapezium::Trapezium(const std::initializer_list<double> &coords) : Figure(coord
     }
 }
 
-Trapezium::Trapezium(const Trapezium& other) : Figure(other) {
+Trapezium::Trapezium(const Trapezium& other) {
+    copy(other);
+}
+
+Trapezium::Trapezium(Trapezium&& other) {
+    move(std::move(other));
+}
+
+Trapezium::Trapezium(const Figure& other) {
+    copy(other);
+}
+
+Trapezium::Trapezium(Figure&& other) {
+    move(std::move(other));
+}
+
+void Trapezium::copy(const Trapezium& other) {
+    _array = new point[4];
+    _array = other._array;
     _array_params = new double[3];
     _array_params = other._array_params;
     typeOfFigure = other.typeOfFigure;
@@ -69,7 +87,10 @@ Trapezium::Trapezium(const Trapezium& other) : Figure(other) {
     _height = other._height;
 }
 
-Trapezium::Trapezium(Trapezium&& other) : Figure(other) {
+void Trapezium::move(Trapezium&& other) {
+    _array = new point[4];
+    _array = other._array;
+    other._array = nullptr;
     _array_params = new double[3];
     _array_params = other._array_params;
     other._array_params = nullptr;
@@ -78,11 +99,11 @@ Trapezium::Trapezium(Trapezium&& other) : Figure(other) {
     _height = other._height;
 }
 
-Trapezium::Trapezium(const Figure& other) : Figure(other) {
+void Trapezium::copy(const Figure& other) {
     throw std::invalid_argument("Fail to create trap");
 }
 
-Trapezium::Trapezium(Figure&& other) : Figure(other) {
+void Trapezium::move(Figure&& other) {
     throw std::invalid_argument("Fail to create trap");
 }
 
@@ -101,10 +122,12 @@ bool Trapezium::equal(const Figure& other) const {
 }
 
 Trapezium& Trapezium::operator=(const Trapezium& other) {
+    copy(other);
     return *this;
 }
 
 Trapezium& Trapezium::operator=(Trapezium&& other) {
+    move(std::move(other));
     return *this;
 }
 

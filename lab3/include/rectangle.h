@@ -27,6 +27,10 @@ protected :
     virtual std::string getType() const override;
     virtual double * getParams() const override;
     virtual point * getArray() const override;
+    void copy(const Rectangle& other);
+    void move(Rectangle&& other);
+    virtual void copy(const Figure& other) override;
+    virtual void move(Figure&& other) override;
 
 protected : 
     std::string typeOfFigure = "rect";

@@ -34,11 +34,15 @@ public :
     friend std::ostream& operator<<(std::ostream&, const Figure&);
     friend std::istream& operator>>(std::istream&, Figure&);
     friend bool operator==(const Figure& left, const Figure& right);
+    Figure& operator=(const Figure& other);
+    Figure& operator=(Figure&& other);
     virtual bool equal(const Figure& other) const = 0;
     virtual bool check(point p1, point p2, point p3, point p4) = 0;
     virtual std::string getType() const = 0;
     virtual double * getParams() const = 0;
     virtual point * getArray() const = 0;
+    virtual void copy(const Figure& other) = 0;
+    virtual void move(Figure&& other) = 0;
 
 protected :
     std::string typeOfFigure;

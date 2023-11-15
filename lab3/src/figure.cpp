@@ -14,17 +14,6 @@ Figure::Figure(const std::initializer_list<double> &coords) {
     }
 }
 
-Figure::Figure(const Figure& other) {
-    _array = new point[4];
-    _array = other._array;
-}
-
-Figure::Figure(Figure&& other) {
-    _array = new point[4];
-    _array = other._array;
-    other._array = nullptr;
-}
-
 point Figure::center() const {
     if (_array == nullptr) {
         throw std::invalid_argument("No coords");
@@ -86,4 +75,14 @@ bool operator==(const Figure& left, const Figure& right) {
         }
     }
     return false;
+}
+
+Figure& Figure::operator=(const Figure& other) {
+    copy(other);
+    return *this;
+}
+
+Figure& Figure::operator=(Figure&& other) {
+    move(std::move(other));
+    return *this;
 }

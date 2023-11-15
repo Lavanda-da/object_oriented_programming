@@ -132,6 +132,15 @@ TEST(Test_02, RectCopyRect)
     EXPECT_TRUE(r1 == r2);
 }
 
+TEST(Test_02, RectCopyRect2)
+{
+    Rectangle r1{1, 1, 5, 1, 5, 3, 1, 3};
+    Rectangle r2{1, 1, 2, 1, 2, 2, 1, 2};
+    r2 = r1;
+
+    EXPECT_TRUE(r1 == r2);
+}
+
 TEST(Test_03, RhombListConstrExcept)  // неверные значения сторон
 {
     EXPECT_THROW((Rhomb {2, 1, 4, 2, 2, 3, 1, 2}), std::invalid_argument);
@@ -222,6 +231,15 @@ TEST(Test_03, RhombCopyRhomb)
     EXPECT_TRUE(rh1 == rh2);
 }
 
+TEST(Test_03, RhombCopyRhomb2)
+{
+    Rhomb rh1{2, 1, 3, 2, 2, 3, 1, 2};
+    Rhomb rh2{1, 0, 2, 1, 1, 2, 0, 1};
+    rh2 = rh1;
+
+    EXPECT_TRUE(rh1 == rh2);
+}
+
 TEST(Test_04, RhombEqualRect)
 {
     Rhomb rh{1, 1, 2, 1, 2, 2, 1, 2};
@@ -246,10 +264,28 @@ TEST(Test_04, RhombCopyRect)
     EXPECT_TRUE(r == rh);
 }
 
+TEST(Test_04, RhombCopyRect2)
+{
+    Rhomb rh{1, 1, 2, 1, 2, 2, 1, 2};
+    Rectangle r{1, 1, 4, 1, 4, 2, 1, 2};
+    r = rh;
+
+    EXPECT_TRUE(r == rh);
+}
+
 TEST(Test_04, RectCopyRhomb)
 {
     Rectangle r{1, 1, 2, 1, 2, 2, 1, 2};
     Rhomb rh = r;
+
+    EXPECT_TRUE(r == rh);
+}
+
+TEST(Test_04, RectCopyRhomb2)
+{
+    Rectangle r{1, 1, 2, 1, 2, 2, 1, 2};
+    Rhomb rh{2, 1, 3, 5, 2, 9, 1, 5};
+    rh = r;
 
     EXPECT_TRUE(r == rh);
 }
@@ -261,11 +297,27 @@ TEST(Test_04, RhombNotCopyRect)
     EXPECT_THROW(Rectangle r = rh, std::invalid_argument);
 }
 
+TEST(Test_04, RhombNotCopyRect2)
+{
+    Rhomb rh{2, 1, 3, 3, 2, 5, 1, 3};
+    Rectangle r;
+
+    EXPECT_THROW(r = rh, std::invalid_argument);
+}
+
 TEST(Test_04, RectNotCopyRhomb)
 {
-    Rectangle r1{1, 1, 5, 1, 5, 3, 1, 3};
+    Rectangle r{1, 1, 5, 1, 5, 3, 1, 3};
 
-    EXPECT_THROW(Rhomb r2 = r1, std::invalid_argument);
+    EXPECT_THROW(Rhomb rh = r, std::invalid_argument);
+}
+
+TEST(Test_04, RectNotCopyRhomb2)
+{
+    Rectangle r{1, 1, 5, 1, 5, 3, 1, 3};
+    Rhomb rh;
+
+    EXPECT_THROW(rh = r, std::invalid_argument);
 }
 
 TEST(Test_05, TrapListConstrExcept)
@@ -358,6 +410,15 @@ TEST(Test_05, TrapCopyTrap)
     EXPECT_TRUE(tr1 == tr2);
 }
 
+TEST(Test_05, TrapCopyTrap2)
+{
+    Trapezium tr1{1, 1, 5, 1, 4, 3, 2, 3};
+    Trapezium tr2;
+    tr2 = tr1;
+
+    EXPECT_TRUE(tr1 == tr2);
+}
+
 TEST(Test_04, TrapNotEqualRect)
 {
     Trapezium tr{1, 1, 5, 1, 4, 3, 2, 3};
@@ -381,11 +442,27 @@ TEST(Test_04, TrapNotCopyRect)
     EXPECT_THROW(Rectangle r = tr, std::invalid_argument);
 }
 
+TEST(Test_04, TrapNotCopyRect2)
+{
+    Trapezium tr{1, 1, 5, 1, 4, 3, 2, 3};
+    Rectangle r;
+
+    EXPECT_THROW(r = tr, std::invalid_argument);
+}
+
 TEST(Test_04, TrapNotCopyRhomb)
 {
     Trapezium tr{1, 1, 5, 1, 4, 3, 2, 3};
 
     EXPECT_THROW(Rhomb rh = tr, std::invalid_argument);
+}
+
+TEST(Test_04, TrapNotCopyRhomb2)
+{
+    Trapezium tr{1, 1, 5, 1, 4, 3, 2, 3};
+    Rhomb rh;
+
+    EXPECT_THROW(rh = tr, std::invalid_argument);
 }
 
 TEST(Test_04, RectNotCopyTrap)
@@ -395,11 +472,27 @@ TEST(Test_04, RectNotCopyTrap)
     EXPECT_THROW(Trapezium tr = r, std::invalid_argument);
 }
 
+TEST(Test_04, RectNotCopyTrap2)
+{
+    Rectangle r{1, 1, 2, 1, 2, 2, 1, 2};
+    Trapezium tr;
+
+    EXPECT_THROW(tr = r, std::invalid_argument);
+}
+
 TEST(Test_04, RhombNotCopyTrap)
 {
     Rhomb rh{2, 1, 3, 2, 2, 3, 1, 2};
 
     EXPECT_THROW(Trapezium tr = rh, std::invalid_argument);
+}
+
+TEST(Test_04, RhombNotCopyTrap2)
+{
+    Rhomb rh{2, 1, 3, 2, 2, 3, 1, 2};
+    Trapezium tr;
+
+    EXPECT_THROW(tr = rh, std::invalid_argument);
 }
 
 TEST(Test_06, ArrayInitConstr)

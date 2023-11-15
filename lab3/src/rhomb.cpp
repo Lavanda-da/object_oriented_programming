@@ -38,40 +38,65 @@ Rhomb::Rhomb(const std::initializer_list<double> &coords) : Figure(coords) {
     }
 }
 
-Rhomb::Rhomb(const Rhomb& other) : Figure(other) {
+Rhomb::Rhomb(const Rhomb& other) {
+    copy(other);
+}
+
+Rhomb::Rhomb(Rhomb&& other) {
+    move(std::move(other));
+}
+
+Rhomb::Rhomb(const Figure& other) {
+    copy(other);
+}
+
+Rhomb::Rhomb(Figure&& other) {
+    move(std::move(other));
+}
+
+void Rhomb::copy(const Figure& other) {
+    point * array = new point[4];
+    array = other.getArray();
+    if (!check(array[0], array[1], array[2], array[3])) {
+        throw std::invalid_argument("Fail to create rhomb");
+    }
+}
+
+void Rhomb::move(Figure&& other) {
+    point * array = new point[4];
+    array = other.getArray();
+    if (!check(array[0], array[1], array[2], array[3])) {
+        throw std::invalid_argument("Fail to create rhomb");
+    }
+    delete[] &other;
+}
+
+void Rhomb::copy(const Rhomb& other) {
+    _array = new point[4];
+    _array = other._array;
+
     _array_params = new double[3];
     _array_params = other._array_params;
+
     typeOfFigure = other.typeOfFigure;
     _diag1 = other._diag1;
     _diag2 = other._diag2;
     _side = other._side;
 }
 
-Rhomb::Rhomb(Rhomb&& other) : Figure(other) {
+void Rhomb::move(Rhomb&& other) {
+    _array = new point[4];
+    _array = other._array;
+    other._array = nullptr;
+
     _array_params = new double[3];
     _array_params = other._array_params;
     other._array_params = nullptr;
+
     typeOfFigure = other.typeOfFigure;
     _diag1 = other._diag1;
     _diag2 = other._diag2;
     _side = other._side;
-}
-
-Rhomb::Rhomb(const Figure& other) : Figure(other) {
-    point * array = new point[4];
-    array = other.getArray();
-    if (!check(array[0], array[1], array[2], array[3])) {
-        throw std::invalid_argument("Fail to create rhomb");
-    }
-}
-
-Rhomb::Rhomb(Figure&& other) : Figure(other) {
-    point * array = new point[4];
-    array = other.getArray();
-    if (!check(array[0], array[1], array[2], array[3])) {
-        throw std::invalid_argument("Fail to create rhomb");
-    }
-    other.~Figure();
 }
 
 Rhomb::operator double() const {
@@ -89,10 +114,12 @@ bool Rhomb::equal(const Figure& other) const {
 }
 
 Rhomb& Rhomb::operator=(const Rhomb& other) {
+    copy(other);
     return *this;
 }
 
 Rhomb& Rhomb::operator=(Rhomb&& other) {
+    move(std::move(other));
     return *this;
 }
 

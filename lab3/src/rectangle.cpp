@@ -39,24 +39,49 @@ Rectangle::Rectangle(const std::initializer_list<double> &coords) : Figure(coord
     }
 }
 
-Rectangle::Rectangle(const Rectangle& other) : Figure(other) {
+Rectangle::Rectangle(const Rectangle& other) {
+    copy(other);
+}
+
+Rectangle::Rectangle(Rectangle&& other) {
+    move(std::move(other));
+}
+
+Rectangle::Rectangle(const Figure& other) {
+    copy(other);
+}
+
+Rectangle::Rectangle(Figure&& other) {
+    move(std::move(other));
+}
+
+void Rectangle::copy(const Rectangle& other) {
+    _array = new point[4];
+    _array = other._array;
+
     _array_params = new double[2];
     _array_params = other._array_params;
+
     typeOfFigure = other.typeOfFigure;
     _side1 = other._side1;
     _side2 = other._side2;
 }
 
-Rectangle::Rectangle(Rectangle&& other) : Figure(other) {
+void Rectangle::move(Rectangle&& other) {
+    _array = new point[4];
+    _array = other._array;
+    other._array = nullptr;
+
     _array_params = new double[2];
     _array_params = other._array_params;
     other._array_params = nullptr;
+    
     typeOfFigure = other.typeOfFigure;
     _side1 = other._side1;
     _side2 = other._side2;
 }
 
-Rectangle::Rectangle(const Figure& other) : Figure(other) {
+void Rectangle::copy(const Figure& other) {
     point * array = new point[4];
     array = other.getArray();
     if (!check(array[0], array[1], array[2], array[3])) {
@@ -64,13 +89,14 @@ Rectangle::Rectangle(const Figure& other) : Figure(other) {
     }
 }
 
-Rectangle::Rectangle(Figure&& other) : Figure(other) {
+void Rectangle::move(Figure&& other) {
     point * array = new point[4];
     array = other.getArray();
     if (!check(array[0], array[1], array[2], array[3])) {
         throw std::invalid_argument("Fail to create rect");
     }
-    other.~Figure();
+    // other.~Figure();
+    delete(&other);
 }
 
 Rectangle::operator double() const {
@@ -89,10 +115,12 @@ bool Rectangle::equal(const Figure& other) const {
 }
 
 Rectangle& Rectangle::operator=(const Rectangle& other) {
+    copy(other);
     return *this;
 }
 
 Rectangle& Rectangle::operator=(Rectangle&& other) {
+    move(std::move(other));
     return *this;
 }
 

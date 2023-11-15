@@ -10,6 +10,7 @@ int main() {
         Rectangle r{1, 1, 2, 1, 2, 2, 1, 2};
         Rhomb rh{2, 1, 3, 2, 2, 3, 1, 2};
         Trapezium tr{1, 1, 5, 1, 4, 3, 2, 3};
+        Trapezium tr2{3, 1, 7, 1, 6, 3, 4, 3};
 
         Array arr{&r, &rh, &tr};
 
