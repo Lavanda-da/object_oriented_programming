@@ -1,5 +1,5 @@
-#include "array.h"
-#include "figure.h"
+#include "../include/array.h"
+#include "../include/figure.h"
 
 Array::operator double() {
     if (_size == 0) {

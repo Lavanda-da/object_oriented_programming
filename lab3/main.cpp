@@ -1,9 +1,9 @@
 #include <iostream>
-#include "figure.h"
-#include "rectangle.h"
-#include "rhomb.h"
-#include "trapezium.h"
-#include "array.h"
+#include "include/figure.h"
+#include "include/rectangle.h"
+#include "include/rhomb.h"
+#include "include/trapezium.h"
+#include "include/array.h"
 
 int main() {
     try {

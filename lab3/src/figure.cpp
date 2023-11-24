@@ -1,4 +1,4 @@
-#include "figure.h"
+#include "../include/figure.h"
 
 Figure::Figure(const std::initializer_list<double> &coords) {
     int n = coords.size();

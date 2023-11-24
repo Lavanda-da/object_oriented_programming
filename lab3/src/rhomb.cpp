@@ -1,4 +1,4 @@
-#include "rhomb.h"
+#include "../include/rhomb.h"
 
 bool Rhomb::check(point coord1, point coord2, point coord3, point coord4) {
     if (coord1 == coord2 || coord1 == coord3 || coord1 == coord4 ||
