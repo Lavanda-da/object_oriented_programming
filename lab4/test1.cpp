@@ -36,6 +36,14 @@ TEST(Test_01, RectListConstrCenter)
     EXPECT_TRUE(r.center() == p);
 }
 
+TEST(Test_01, RectListConstrCenter2)
+{
+    Rectangle<double> r{1, 1, 5, 1, 5, 3, 1, 3};
+    std::pair<double, double> p{3, 2};
+
+    EXPECT_TRUE(r.center() == p);
+}
+
 TEST(Test_01, RectBaseConstrSquare)
 {
     Rectangle<int> r;
@@ -153,6 +161,14 @@ TEST(Test_02, RhombBaseConstrSquare)
 TEST(Test_02, RhombListConstrSquare)
 {
     Rhomb<int> rh{2, 1, 3, 2, 2, 3, 1, 2};
+    double square = 2;
+
+    EXPECT_TRUE(abs(double(rh) - square) < EPS);
+}
+
+TEST(Test_02, RhombListConstrSquare2)
+{
+    Rhomb<double> rh{2, 1, 3, 2, 2, 3, 1, 2};
     double square = 2;
 
     EXPECT_TRUE(abs(double(rh) - square) < EPS);
@@ -317,6 +333,14 @@ TEST(Test_04, TrapBaseConstrCenter)
 TEST(Test_04, TrapListConstrCenter)
 {
     Trapezium<int> tr{1, 1, 5, 1, 4, 3, 2, 3};
+    std::pair<double, double> p{3, 2};
+
+    EXPECT_TRUE(tr.center() == p);
+}
+
+TEST(Test_04, TrapListConstrCenter2)
+{
+    Trapezium<double> tr{1, 1, 5, 1, 4, 3, 2, 3};
     std::pair<double, double> p{3, 2};
 
     EXPECT_TRUE(tr.center() == p);
@@ -544,6 +568,17 @@ TEST(Test_05, ArrayEraseSum)
     EXPECT_TRUE((sum_arr == sum_figure) && (arr.size() == 2));
 }
 
+TEST(Test_05, ArrayEraseIndex)
+{
+    Rectangle<int> r{1, 1, 2, 1, 2, 2, 1, 2};
+    Rhomb<int> rh{2, 1, 3, 2, 2, 3, 1, 2};
+    Trapezium<int> tr{1, 1, 5, 1, 4, 3, 2, 3};
+
+    Array<Figure<int>*> arr {&r, &tr, &rh};
+
+    EXPECT_TRUE(arr[0] == &r);
+}
+
 TEST(Test_05, ArrayEraseEXcept)
 {
     Rectangle<int> r{1, 1, 2, 1, 2, 2, 1, 2};
@@ -556,6 +591,29 @@ TEST(Test_05, ArrayEraseEXcept)
     arr.insert(0, &rh);
 
     EXPECT_THROW(arr.erase(-1), std::range_error);
+}
+
+TEST(Test_06, ArrayOtherObjInd)
+{
+    Array<int> arr {1, 2, 3, 6};
+
+    EXPECT_TRUE(arr[1] == 2);
+}
+
+TEST(Test_06, Test_06_ArrayOtherObjInsert)
+{
+    Array<int> arr {1, 2, 3, 6};
+    arr.insert(0, 10);
+
+    EXPECT_TRUE((arr[0] == 10) && (arr.size() == 5));
+}
+
+TEST(Test_06, Test_06_ArrayOtherObjErase)
+{
+    Array<std::string> arr {"asdf", "jfgh"};
+    arr.erase(0);
+
+    EXPECT_TRUE((arr[0] == "jfgh") && (arr.size() == 1));
 }
 
 int main(int argc, char **argv) {
