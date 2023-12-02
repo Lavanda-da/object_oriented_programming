@@ -64,7 +64,8 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "csignal": "cpp"
     },
     "cmake.sourceDirectory": "/home/irina/course_2/object_oriented_programming/lab2/googletest/googletest"
 }
