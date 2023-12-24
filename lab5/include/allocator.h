@@ -89,6 +89,9 @@ template<class T>
 template<class T1, class ... ARGS>
 void Allocator<T>::construct(T1 *p, ARGS... args) 
 {
+    if (p < free_blocks[0] || p > free_blocks[MAX_SIZE - 1]) {
+        throw std::out_of_range("ptr not in alloc\n");
+    }
     new (p) T1(std::forward<ARGS>(args)...);
 };
 

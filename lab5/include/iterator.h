@@ -111,6 +111,7 @@ T ConstIterator<T>::getValue() const
 template<class T>
 ConstIterator<T>& ConstIterator<T>::operator++()
 {
+    if (current == nullptr) throw std::range_error("Out of iterator\n");
     current = current->next;
     return *this;
 }
@@ -118,6 +119,7 @@ ConstIterator<T>& ConstIterator<T>::operator++()
 template<class T>
 ConstIterator<T> ConstIterator<T>::operator++(int)
 {
+    if (current == nullptr) throw std::range_error("Out of iterator\n");
     ConstIterator<T> now(*this);
     current = current->next;
     return now;
