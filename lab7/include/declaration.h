@@ -17,7 +17,7 @@
 
 #define fileOutput "log.txt"
 
-extern std::mutex print_mutex;
+extern std::shared_mutex print_mutex;
 
 enum NpcType 
 {

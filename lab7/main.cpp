@@ -61,7 +61,7 @@ class FightManager
                     {
                             if (event->attacker->isAlive())     // no zombie fighting!
                                 if (event->defender->isAlive()) // already dead!
-                                    if (event->defender->accept(event->attacker))
+                                    if (event->defender->accept(event->attacker)) 
                                         event->defender->must_die();
                     }
                     else
@@ -168,7 +168,7 @@ int main()
             }
         }
 
-        std::lock_guard<std::mutex> lck(print_mutex);
+        std::lock_guard<std::shared_mutex> lck(print_mutex);
         for (int j = 0; j < grid; ++j)
         {
             for (int i = 0; i < grid; ++i)

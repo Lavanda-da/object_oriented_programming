@@ -21,12 +21,20 @@ bool Bear::accept(std::shared_ptr<NPC> visitor)
 
 bool Bear::visit(std::shared_ptr<Bittern> monster) 
 {
-    notify(std::shared_ptr<Bear>(this,[](Bear*){}), monster);
-    return true;
+    if (win()) 
+    {
+        notify(std::shared_ptr<Bear>(this,[](Bear*){}), monster);
+        return true;
+    }
+    return false;
 }
 
 bool Bear::visit(std::shared_ptr<Muskrat> monster) 
 {
-    notify(std::shared_ptr<Bear>(this,[](Bear*){}), monster);
-    return true;
+    if (win()) 
+    {
+        notify(std::shared_ptr<Bear>(this,[](Bear*){}), monster);
+        return true;
+    }
+    return false;
 }

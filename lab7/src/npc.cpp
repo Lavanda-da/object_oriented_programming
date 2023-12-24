@@ -1,6 +1,6 @@
 #include "../include/npc.h"
 
-std::mutex print_mutex;
+std::shared_mutex print_mutex;
 
 NPC::NPC(NpcType _type, std::string _name, int _x, int _y) : type(_type), name(_name), x(_x), y(_y), alive(true) {}
 
@@ -86,6 +86,15 @@ void NPC::move(int shift_x, int shift_y, int max_x, int max_y)
         y += shift_y;
 }
 
+
+bool NPC::win()
+{
+    int attack = std::rand() % 6;
+    int defend = std::rand() % 6;
+    if (attack > defend) return true;
+    return false;
+}
+
 bool NPC::visit(std::shared_ptr<Bear> monster) 
 {
     return false;
@@ -113,7 +122,7 @@ void NPC::subscribe(std::shared_ptr<Observer> observer)
 
 void NPC::unsubscribe(std::shared_ptr<Observer> observer)
 {
-    std::lock_guard<std::mutex> lck(print_mutex);
+    std::lock_guard<std::shared_mutex> lck(print_mutex);
     std::cout << observers.size() << std::endl;
     observers.erase(observer);
     std::cout << observers.size() << std::endl;

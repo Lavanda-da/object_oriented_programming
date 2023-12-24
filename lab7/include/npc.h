@@ -21,6 +21,7 @@ class NPC : public std::enable_shared_from_this<NPC>
         std::pair <int, int> position();
         float distance(const std::shared_ptr<NPC> &other);
         void move(int shift_x, int shift_y, int max_x, int max_y);
+        bool win();
 
         virtual bool accept(std::shared_ptr<NPC> visitor) = 0;
         virtual bool visit(std::shared_ptr<Bear> monster);

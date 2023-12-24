@@ -21,6 +21,10 @@ bool Muskrat::accept(std::shared_ptr<NPC> visitor)
 
 bool Muskrat::visit(std::shared_ptr<Bear> monster)
 {
-    notify(std::shared_ptr<Muskrat>(this,[](Muskrat*){}), monster);
-    return true;
+    if (win()) 
+    {
+        notify(std::shared_ptr<Muskrat>(this,[](Muskrat*){}), monster);
+        return true;
+    }
+    return false;
 }
