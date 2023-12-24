@@ -16,6 +16,9 @@
 #include <array>
 
 #define fileOutput "log.txt"
+#define STOP 7
+
+using namespace std::chrono_literals;
 
 extern std::shared_mutex print_mutex;
 

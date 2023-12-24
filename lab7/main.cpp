@@ -6,70 +6,7 @@
 #include "include/observerConsole.h"
 #include "include/observerFile.h"
 #include "include/factory.h"
-
-#define STOP 10
-
-using namespace std::chrono_literals;
-
-struct FightEvent
-{
-    std::shared_ptr<NPC> attacker;
-    std::shared_ptr<NPC> defender;
-};
-
-class FightManager
-{
-    private:
-        std::queue<FightEvent> events;
-        std::shared_mutex mtx;
-
-        FightManager() {}
-
-    public:
-        static FightManager &get()
-        {
-            static FightManager instance;
-            return instance;
-        }
-
-        void add_event(FightEvent &&event)
-        {
-            std::lock_guard<std::shared_mutex> lock(mtx);
-            events.push(event);
-        }
-
-        void operator()()
-        {
-            time_t start_time = time(0);
-
-            while (true)
-            {
-                if (time(0) - start_time > STOP + 1) break;
-
-                {
-                    std::optional<FightEvent> event;
-                    {
-                        std::lock_guard<std::shared_mutex> lock(mtx);
-                        if (!events.empty())
-                        {
-                            event = events.back();
-                            events.pop();
-                        }
-                    }
-
-                    if (event)
-                    {
-                            if (event->attacker->isAlive())     // no zombie fighting!
-                                if (event->defender->isAlive()) // already dead!
-                                    if (event->defender->accept(event->attacker)) 
-                                        event->defender->must_die();
-                    }
-                    else
-                        std::this_thread::sleep_for(100ms);
-                }
-            }
-        }
-};
+#include "include/fight.h"
 
 int main()
 {
