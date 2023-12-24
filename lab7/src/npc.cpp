@@ -121,7 +121,6 @@ void NPC::unsubscribe(std::shared_ptr<Observer> observer)
 
 void NPC::notify(std::shared_ptr<NPC> attacker, std::shared_ptr<NPC> defender) const
 {
-    std::lock_guard<std::mutex> lck(print_mutex);
     for (auto observer : observers) {
         observer->update(attacker, defender);
     }
